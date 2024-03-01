@@ -20,3 +20,10 @@ Extensions to Add Usability: Possible additions could be a search bar so that if
 Time Committed: This project took me about 6-7 hours in total to complete.
 
 AI Tools Utilized: I used ChatGPT to assist me in debugging and styling the table. I did not use it for the data formatting with Pandas.
+
+## Example Run
+![Picture 1](docs/Picture1.png)
+
+![Picture 2](docs/Picture2.png)
+
+![Picture 3](docs/Picture3.png)
