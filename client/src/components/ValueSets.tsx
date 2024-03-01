@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface Medication{
     beta_name: string,
@@ -33,14 +34,17 @@ const ValueSets = () => {
     const [selectedFieldR, setSelectedFieldR] = useState<string>('');
     const [anchorElS, setAnchorElS] = useState<null | HTMLElement>(null);
     const [selectedFieldS, setSelectedFieldS] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
   
     useEffect(() => {
         const getSets = async () => {
             try {
+                setIsLoading(true);
                 const data = await fetch(
                     "http://localhost:5000"
                 ).then((res) => res.json())
                 setValueSets(data)
+                setIsLoading(false);
             }catch(e){
                 console.log(e)
             }
@@ -50,6 +54,7 @@ const ValueSets = () => {
     }, [])
 
     const handleBetaFilter = async (field: string) => {
+        setIsLoading(true);
         if (filteredB){
             try {
                 const data = await fetch(
@@ -65,21 +70,23 @@ const ValueSets = () => {
             const filteredData = valueSets.filter((medication) => {
                 return medication.beta_name.trim() === field; // Example filter based on 'beta_name'
             });
-           
+            
             setValueSets(filteredData);
         }else if (filteredSets != null && filteredB){
             const filteredData = filteredSets.filter((medication) => {
                 return medication.beta_name.trim() === field; // Example filter based on 'beta_name'
             });
-            console.log(filteredData)
+            
             setValueSets(filteredData);
         }
+        setIsLoading(false);
         setAnchorElB(null);
         setSelectedFieldB(field);
         setFilteredB(true);
     };
 
     const handleRouteFilter = async (field: string) => {
+        setIsLoading(true);
         if (filteredR){
             try {
                 const data = await fetch(
@@ -104,12 +111,14 @@ const ValueSets = () => {
             
             setValueSets(filteredData);
         }
+        setIsLoading(false);
         setAnchorElR(null);
         setSelectedFieldR(field);
         setFilteredR(true);
     }
 
     const handleSimpleFilter = async (field: string) => {
+        setIsLoading(true);
         if (filteredS){
             try {
                 const data = await fetch(
@@ -134,12 +143,14 @@ const ValueSets = () => {
             
             setValueSets(filteredData);
         }
+        setIsLoading(false);
         setAnchorElS(null);
         setSelectedFieldS(field);
         setFilteredS(true);
     }
 
     const resetFilter = async () => {
+        setIsLoading(true);
         setAnchorElB(null);
         setSelectedFieldB('');
         setAnchorElR(null);
@@ -158,6 +169,7 @@ const ValueSets = () => {
         setFilteredB(false);
         setFilteredR(false);
         setFilteredS(false);
+        setIsLoading(false);
     };
 
     const handleMenuOpenB = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -258,48 +270,55 @@ const ValueSets = () => {
                     Reset
                 </Button>
             </div>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                    <TableHead>
-                        <TableRow style={{ backgroundColor: '#f0f0f0' }} className="mb-3">
-                            <TableCell style={{ color: '#333333' }}>Value Set</TableCell>
-                            <TableCell align="right" style={{ color: '#333333' }}>Medication Name</TableCell>
-                            <TableCell align="right" style={{ color: '#333333' }}>Simple Generic Name</TableCell>
-                            <TableCell align="right" style={{ color: '#333333' }}>Route</TableCell>
-                            <TableCell align="right" style={{ color: '#333333' }}>Outpatients</TableCell>
-                            <TableCell align="right" style={{ color: '#333333' }}>Inpatients</TableCell>
-                            <TableCell align="right" style={{ color: '#333333' }}>Patients</TableCell>
-                        </TableRow>
-                    </TableHead>
-                        {valueSets ? 
-                        
-                            <TableBody>
-                                {valueSets.map((medication) => (
-                                    <TableRow 
-                                    sx={{ 
-                                        '&:last-child td, &:last-child th': { 
-                                            border: 0 
-                                        },
-                                        '&:hover': {
-                                            backgroundColor: '#f5f5f5' // Add hover effect
-                                        }
-                                    }}>
-                                        <TableCell component="th" scope="row">{medication.beta_name}</TableCell>
-                                        <TableCell align="right">{medication.medname}</TableCell>
-                                        <TableCell align="right">{medication.simple_generic_name}</TableCell>
-                                        <TableCell align="right">{medication.route}</TableCell>
-                                        <TableCell align="right">{medication.outpatients}</TableCell>
-                                        <TableCell align="right">{medication.inpatients}</TableCell>
-                                        <TableCell align="right">{medication.patients}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        
+            {!isLoading ? 
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: '#f0f0f0' }} className="mb-3">
+                                <TableCell style={{ color: '#333333' }}>Value Set</TableCell>
+                                <TableCell align="right" style={{ color: '#333333' }}>Medication Name</TableCell>
+                                <TableCell align="right" style={{ color: '#333333' }}>Simple Generic Name</TableCell>
+                                <TableCell align="right" style={{ color: '#333333' }}>Route</TableCell>
+                                <TableCell align="right" style={{ color: '#333333' }}>Outpatients</TableCell>
+                                <TableCell align="right" style={{ color: '#333333' }}>Inpatients</TableCell>
+                                <TableCell align="right" style={{ color: '#333333' }}>Patients</TableCell>
+                            </TableRow>
+                        </TableHead>
+                            {valueSets ? 
+                            
+                                <TableBody>
+                                    {valueSets.map((medication) => (
+                                        <TableRow 
+                                        sx={{ 
+                                            '&:last-child td, &:last-child th': { 
+                                                border: 0 
+                                            },
+                                            '&:hover': {
+                                                backgroundColor: '#f5f5f5' // Add hover effect
+                                            }
+                                        }}>
+                                            <TableCell component="th" scope="row">{medication.beta_name}</TableCell>
+                                            <TableCell align="right">{medication.medname}</TableCell>
+                                            <TableCell align="right">{medication.simple_generic_name}</TableCell>
+                                            <TableCell align="right">{medication.route}</TableCell>
+                                            <TableCell align="right">{medication.outpatients}</TableCell>
+                                            <TableCell align="right">{medication.inpatients}</TableCell>
+                                            <TableCell align="right">{medication.patients}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            
 
-                        :
-                        <div></div>}
-                </Table>
-            </TableContainer>
+                            :
+                            <div></div>}
+                    </Table>
+                </TableContainer>
+            : 
+            
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <CircularProgress />
+            </div>
+            }
         </div>
     )
 }
