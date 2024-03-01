@@ -190,7 +190,7 @@ const ValueSets = () => {
         <div>
             <div style={{ display: 'flex', gap: '10px', justifyContent: "center", marginBottom: '20px', marginTop: '20px'}}>
                 <Button variant="contained" onClick={handleMenuOpenB}>
-                    Beta Blocker {selectedFieldB ? `(${selectedFieldB})` : ''}
+                    Beta Blocker Set {selectedFieldB ? `(${selectedFieldB})` : ''}
                 </Button>
                 <Menu
                     anchorEl={anchorElB}
