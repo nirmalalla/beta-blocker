@@ -17,9 +17,9 @@ Architectural Design Decisions: I decided to start by using Pandas to format the
 
 Extensions to Add Usability: Possible additions could be a search bar so that if a user is looking for something specific, they can simply search for said item. Another addition would be styling to make the table more appealing to the eye.
 
-Time Committed: This project took me about 6-7 hours in total to complete.
+Time Committed: This project took me about 5-6 hours in total to complete.
 
-AI Tools Utilized: I used ChatGPT to assist me in debugging and styling the table. I did not use it for the data formatting with Pandas.
+AI Tools Utilized: I used ChatGPT to assist me in debugging and styling the table, and I also used it to assist with some of the filtering.
 
 ## Example Run
 ![Picture 1](docs/Picture1.png)
