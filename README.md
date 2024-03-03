@@ -21,6 +21,9 @@ Time Committed: This project took me about 5-6 hours in total to complete.
 
 AI Tools Utilized: I used ChatGPT to assist me in debugging and styling the table, and I also used it to assist with some of the filtering.
 
+## Video Demo
+[Click Here to Watch](https://us05web.zoom.us/clips/share/YbXpuq253wASKf5wxjUPvEmnYvWB2Sm80PspaXketv-_Q1eM3mnZmxHsaH3YA2EWpANUrZgq8TCgMc72BYEh1dzsRA.OOxK-pyLPBY48Yzs)
+
 ## Example Run
 ![Picture 1](docs/Picture1.png)
 
